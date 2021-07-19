@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import json
 import time
 
-def notifyMe(title, message):
+def notifyMe(title, message):   #this function will be used for notification
     notification.notify(
         title = title,
         message = message,
@@ -19,8 +19,9 @@ def getData(url):
 
 
 if __name__ == "__main__":
-    # notifyMe('me','hello')
+    # we fetched the data from the given website 
     myHtmlData = getData('https://prsindia.org/covid-19/cases')
+    
     soup = BeautifulSoup(myHtmlData, 'html.parser')
     # print(soup.prettify())
 
@@ -45,7 +46,8 @@ if __name__ == "__main__":
             cnt+=1
     # print(finalData)     #finalData stores the complete states covid-19 data
          
-    states = ['Delhi', 'Maharashtra', 'Uttarakhand']
+    states = ['Delhi', 'Maharashtra', 'Uttarakhand']    #it will notify me regarding these three states covid cases
+    #i can append other states too if i want to get details regarding other states.
     for item in finalData:
         # dataList = item.split('\n')
         if item[0] in states:
@@ -53,7 +55,8 @@ if __name__ == "__main__":
             nTitle = 'Covid-19 Update'
             nText = f"State : {item[0]}\nConfirmed Cases : {item[1]}\nActive Cases : {item[2]}\nRecovered : {item[3]}\nDeath : {item[4]}"
             notifyMe(nTitle,nText)
-            time.sleep(2)
+            #program will go to sleep for the specified time and again looks for the updated covid cases from the website
+            time.sleep(2)  
 
 
 
